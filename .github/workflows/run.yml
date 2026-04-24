@@ -1,0 +1,23 @@
+name: Fetch Stock Quotes
+
+on:
+  workflow_dispatch:       # lets you click a button to run it manually
+  schedule:
+    - cron: '0 9 * * 1-5' # also auto-runs Mon–Fri at 9am UTC
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run script
+        run: python fetch_data.py
